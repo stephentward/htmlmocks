@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>PROMPT</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <!--
+      IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+      For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+    -->
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+      <script>
+        document.createElement('ui-select');
+        document.createElement('ui-select-match');
+        document.createElement('ui-select-choices');
+      </script>
+    <![endif]-->
+
+
+    <meta charset="utf-8">
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/ui-grid.min.css" rel="stylesheet" />
+    <link href="Content/app.css" rel="stylesheet" />
+    <link href="Content/select2.css" rel="stylesheet" />
+    <link href="Content/select.min.css" rel="stylesheet" />
+    <link href="Content/angular-growl.min.css" rel="stylesheet">
+    
+    <link href="Content/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.metro.min.css" rel="stylesheet" />
+    
+    
+    <!--<link href="Content/kendo.2015.1.318/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.metro.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.default.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.min.css" rel="stylesheet" />
+    
+    <link href="Content/kendo.2015.1.318/kendo.rtl.min.css" rel="stylesheet" />-->
+
+    <style>
+        /*.full-screen {
+                  position: fixed;
+                  height: 100%;
+                  width: 100%;
+                  top: 0;
+                  left: 0;
+                }*/
+
+        .zIndex-10--loadingPage {
+            z-index: 1000;
+        }
+
+        [ng:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body>
+    
+    
+     <header>
+        <div class="row">
+            <div id="logo" class="col-md-8">
+                <img src="./Content/images/nwLogo.png">
+            </div>
+            <div id="top-loggedin" class="col-md-4">
+                <div class="col-md-5 right login-bar">
+                  logged in as: admin <img class="right" height=20px width=20px src="Content/images/gear.png">  
+                </div>
+                
+            </div>    
+        </div>
+        <div id="header-menu" class="row">
+            <div class="col-md-12">
+                <ul id="topMenu" data-role="menu" class="h-menu k-menu k-menu-horizontal " tabindex="0" role="menubar">
+                    <li class="h-item k-item k-state-active k-first" role="menuitem"><a href="#" class="k-link">Home</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Search</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Admin</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Reports</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Dashboards</a></li>
+                    
+                </ul>   
+            </div>
+        </div>    
+    </header>
+    
+    <ul id="dash-tabs" class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">OHTS Dashboard</a></li>
+        <li><a data-toggle="tab" href="#menu1">Meeting Progress</a></li>
+    
+    </ul>
+    
+    <div class="tab-content pad">
+        <div id="home" class="tab-pane fade in active">
+            <div class="row t-pad">
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <h4 class="center">Not reviewed, on Watch List</h4>
+                        <h1 class="center">20</h1>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <h4 class="center">Reviewed, on Watch List</h4>
+                        <h1 class="center">12</h1>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <h4 class="center">Reviewed, not on Watch List</h4>
+                        <h1 class="center">34</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+              <h4>Watch List</h4>
+              <div ng-controller="watchlistCtrl">
+                  <div id="watchlist-grid" ui-grid="gridOptions1" class="home-grid"></div>
+              </div>
+            </div>
+            <div class="row t-pad">
+              <h4>Reviews Completed Since Last Meeting</h4>
+              <div ng-controller="reviewsCtrl">
+                  <div id="reviews-grid" ui-grid="gridOptions2" class="home-grid"></div>
+              </div>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+          <h3>Next Meeting: 03/09/2016</h3>
+          <div class="row t-pad">
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <h1 class="center">32</h1>
+                        <h4 class="center">Organizations assigned to meeting</h4>                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well well-sm">
+                        <h1 class="center">25%</h1>
+                        <h4 class="center">ready for meeting</h4>                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well well-sm">                        
+                        <h1 class="center">10</h1>
+                        <h4 class="center">Reviews complete</h4>
+                    </div>
+                </div>
+            </div>
+          
+        </div>    
+    </div>
+
+    
+    
+    
+   
+    
+    <script src="Scripts/angular.min.js"></script>    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/select.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/kendo.ui.core.min.js"></script>
+    <script src="Scripts/ui-grid.min.js"></script>    
+    <script src="Scripts/angular-local-storage.min.js"></script>
+    <script src="Scripts/angular-growl.min.js"></script>    
+    <script>
+            $(document).ready(function() {
+                $("#topMenu").kendoMenu();
+            });
+    </script>
+    
+    <script>
+                $(document).ready(function() {
+                    var data = [
+                        { text: "All", value: "1" },
+                        { text: "Applicant", value: "2" },
+                        { text: "Assessment", value: "3" },
+                        { text: "Charter", value: "4" },
+                        { text: "Charter-Provisional", value: "5" },
+                        { text: "Disaffiliation", value: "6" },
+                        { text: "Suspended", value: "7" }
+                    ];
+
+                    // create DropDownList from input HTML element
+                    $("#charter").kendoDropDownList({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: data,
+                        index: 0,
+                        change: onChange
+                    });
+
+                    // create DropDownList from select HTML element
+                    
+
+                    var color = $("#charter").data("kendoDropDownList");
+
+                    color.select(0);
+                    
+
+                    function onChange() {
+                        var value = $("#charter").val();
+                        
+                    };
+
+                    
+                });
+    </script>
+    
+    <script>
+        var app = angular.module('app', ['ngTouch', 'ui.grid']);
+ 
+        app.controller('watchlistCtrl', ['$scope', function ($scope) {
+            
+          $scope.gridOptions1 = {
+                data : 'myData1',
+                columnDefs: [{ field: 'pCode', displayName: 'Pcode', width: '7%' },
+                             { field: 'orgName', displayName: 'Organization Name', width: "*" },
+                             { field: 'district', displayName: 'District', width: '10%'},
+                             { field: 'rm', displayName: 'RM', width: '10%'},
+                             { field: 'meetingDate', displayName: 'Meeting Date', width: '10%'},
+                             { field: 'field', displayName: 'Field', width: '6%'},
+                             { field: 'oad', displayName: 'OAD', width: '6%'},
+                             { field: 'ni', displayName: 'NI', width: '6%'},
+                             { field: 'nfmc', displayName: 'NFMC', width: '6%'},
+                             { field: 'nhp', displayName: 'NHP', width: '6%'},
+                             { field: 'nrep', displayName: 'NREP', width: '6%'}]
+                };
+          $scope.myData1 = [
+            {
+                "pCode": "1014",
+                "orgName": "Jamaica Housing Improvement, Inc.",
+                "district": "Northeast",
+                "rm": "",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "8007",
+                "orgName": "NHS of New York City, Inc.",
+                "district": "Northeast",
+                "rm": "",
+                "meetingDate": "03/09/2016",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3010",
+                "orgName": "Foundation Communities",
+                "district": "Rocky Mountain",
+                "rm": "Michael Landy",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3015",
+                "orgName": "MHA of Greater Hartford, Inc.",
+                "district": "Northeast",
+                "rm": "James Word",
+                "meetingDate": "03/09/2016",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3020",
+                "orgName": "MHA of Southwestern Connecticut, Inc.",
+                "district": "Northeast",
+                "rm": "James Word",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3025",
+                "orgName": "Mutual Housing California",
+                "district": "Pacific",
+                "rm": "Joseph Dabek",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            }
+        ];
+        }])
+        
+        app.controller('reviewsCtrl', ['$scope', function ($scope) {
+            
+          $scope.gridOptions2 = {
+                data : 'myData2',
+                columnDefs: [{ field: 'pCode', displayName: 'Pcode', width: '7%' },
+                             { field: 'orgName', displayName: 'Organization Name', width: "*" },
+                             { field: 'district', displayName: 'District', width: '10%'},
+                             { field: 'rm', displayName: 'RM', width: '10%'},
+                             { field: 'meetingDate', displayName: 'Meeting Date', width: '10%'},
+                             { field: 'field', displayName: 'Field', width: '6%'},
+                             { field: 'oad', displayName: 'OAD', width: '6%'},
+                             { field: 'ni', displayName: 'NI', width: '6%'},
+                             { field: 'nfmc', displayName: 'NFMC', width: '6%'},
+                             { field: 'nhp', displayName: 'NHP', width: '6%'},
+                             { field: 'nrep', displayName: 'NREP', width: '6%'}]
+                };
+          $scope.myData2 = [
+            {
+                "pCode": "1014",
+                "orgName": "Jamaica Housing Improvement, Inc.",
+                "district": "Northeast",
+                "rm": "",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "8007",
+                "orgName": "NHS of New York City, Inc.",
+                "district": "Northeast",
+                "rm": "",
+                "meetingDate": "03/09/2016",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3010",
+                "orgName": "Foundation Communities",
+                "district": "Rocky Mountain",
+                "rm": "Michael Landy",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3015",
+                "orgName": "MHA of Greater Hartford, Inc.",
+                "district": "Northeast",
+                "rm": "James Word",
+                "meetingDate": "03/09/2016",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3020",
+                "orgName": "MHA of Southwestern Connecticut, Inc.",
+                "district": "Northeast",
+                "rm": "James Word",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            },
+            {
+                "pCode": "3025",
+                "orgName": "Mutual Housing California",
+                "district": "Pacific",
+                "rm": "Joseph Dabek",
+                "meetingDate": "unassigned",
+                "field": "",
+                "oad": "",
+                "ni": "",
+                "nfmc": "",
+                "nhp": "",
+                "nrep": ""
+                
+            }
+        ];
+        }]);
+    </script>
+    
+</body>
+
+</html>

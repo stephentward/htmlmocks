@@ -1,0 +1,111 @@
+[
+	{
+		"findingGroup": "Corrective Action",
+		"findingType": "Other Leverage Risk",
+		"findingDesc": "We found a problem with..",
+		"findingDate": "3/1/2016",
+		"promptCategory": "R",
+		"resolutionTask": "",
+		"oad": "Keep",
+		"field": "Clear",
+		"action": "x",
+		"things": [
+			{
+				"id": 0,
+				"name": "thing 1"
+			},
+			{
+				"id": 1,
+				"name": "thing 2"
+			},
+			{
+				"id": 2,
+				"name": "thing 3"
+			}
+		]
+		
+		
+	},
+	{
+		"findingGroup": "Area for Improvement",
+		"findingType": "Strategic Plan",
+		"findingDesc": "We found a problem with..",
+		"findingDate": "3/1/2016",
+		"promptCategory": "O",
+		"resolutionTask": "",
+		"oad": "Keep",
+		"field": "Keep",
+		"action": "x",
+		"things": [
+			{
+				"id": 0,
+				"name": "thing 1"
+			},
+			{
+				"id": 1,
+				"name": "thing 2"
+			},
+			{
+				"id": 2,
+				"name": "thing 3"
+			}
+		]
+		
+		
+	},
+	{
+		"findingGroup": "Item of Note",
+		"findingType": "Comliance: Audit",
+		"findingDesc": "We found a problem with..",
+		"findingDate": "2/1/2014",
+		"promptCategory": "O",
+		"resolutionTask": "",
+		"oad": "Clear",
+		"field": "Clear",
+		"action": "x",
+		"things": [
+			{
+				"id": 0,
+				"name": "thing 1"
+			},
+			{
+				"id": 1,
+				"name": "thing 2"
+			},
+			{
+				"id": 2,
+				"name": "thing 3"
+			}
+		]
+		
+		
+	},
+	{
+		"findingGroup": "Notice of Priority Risk",
+		"findingType": "Other Leverage Risk",
+		"findingDesc": "We found a problem with..",
+		"findingDate": "12/1/2011",
+		"promptCategory": "O",
+		"resolutionTask": "",
+		"oad": "Clear",
+		"field": "Keep",
+		"action": "x",
+		"things": [
+			{
+				"id": 0,
+				"name": "thing 1"
+			},
+			{
+				"id": 1,
+				"name": "thing 2"
+			},
+			{
+				"id": 2,
+				"name": "thing 3"
+			}
+		]
+		
+		
+	}
+	
+]

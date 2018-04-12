@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PROMPT</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <!--
+      IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+      For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+    -->
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+      <script>
+        document.createElement('ui-select');
+        document.createElement('ui-select-match');
+        document.createElement('ui-select-choices');
+      </script>
+    <![endif]-->
+
+
+    <meta charset="utf-8">
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/ui-grid.min.css" rel="stylesheet" />
+    <link href="Content/app.css" rel="stylesheet" />
+    <link href="Content/select2.css" rel="stylesheet" />
+    <link href="Content/select.min.css" rel="stylesheet" />
+    <link href="Content/angular-growl.min.css" rel="stylesheet">
+    
+    <link href="Content/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.metro.min.css" rel="stylesheet" />
+    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" /> 
+    
+    <!--<link href="Content/kendo.2015.1.318/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.metro.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.default.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.min.css" rel="stylesheet" />
+    
+    <link href="Content/kendo.2015.1.318/kendo.rtl.min.css" rel="stylesheet" />-->
+
+    <style>
+        /*.full-screen {
+                  position: fixed;
+                  height: 100%;
+                  width: 100%;
+                  top: 0;
+                  left: 0;
+                }*/
+
+        .zIndex-10--loadingPage {
+            z-index: 1000;
+        }
+
+        [ng:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body>
+    
+    
+     <header>
+        <div class="row">
+            <div id="logo" class="col-md-8">
+                <img src="./Content/images/nwLogo.png">
+            </div>
+            <div id="top-loggedin" class="col-md-4">
+                <div class="col-md-5 right login-bar">
+                  logged in as: admin  <i class="fa fa-cog"></i> 
+                </div>
+                
+            </div>    
+        </div>
+        <div id="header-menu" class="row">
+            <div class="col-md-12">
+                <ul id="topMenu" data-role="menu" class="h-menu k-menu k-menu-horizontal " tabindex="0" role="menubar">
+                    <li class="h-item k-item k-state-active k-first" role="menuitem"><a href="#" class="k-link">Home</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Search</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Admin</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Reports</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Dashboards</a></li>
+                    
+                </ul>   
+            </div>
+        </div>    
+    </header>
+    <div class="pad">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="record-search">
+                    <h3><i class="fa fa-envelope fa"></i> My Inbox</h3>
+                    <div id="home-search" class="row">
+                        <div class="col-md-4">
+                            Search: <input id="nwo-search" style="width:70%;" />    
+                        </div>
+                    </div>
+
+                    <div ng-app="app" ng-controller="MainCtrl">
+                      <div id="grid" ui-grid="gridOptions" class="home-grid"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                <div id="announcements" class="t-pad">
+                    
+                    <div class="panel panel-default ">
+                      <div class="blue-head panel-heading top-head"><h4><i class="fa fa-bullhorn"></i> Announcements</h4></div>
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                            <h3 class="panel-title">Site Maintenance Sunday, 2/28</h3>
+                            <p>This weekend we will be performing routine server maintenance and upgrading hardware on the server environment for performance and scalability. The maintenance will be performed February 28th during a three hour window of 6:00 AM - 9:00 AM (PST) | 2:00 PM - 5:00 PM (GMT). </p>
+                        </li>
+                        <li class="list-group-item">
+                            <h3 class="panel-title">Site Maintenance Sunday, 3/27</h3>
+                            <p>This weekend we will be performing routine server maintenance and upgrading hardware on the server environment for performance and scalability. The maintenance will be performed February 28th during a three hour window of 6:00 AM - 9:00 AM (PST) | 2:00 PM - 5:00 PM (GMT).</p>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+                
+                
+            </div>
+            <div class="col-md-4">
+                <div id="home-cal" class="t-pad">
+                     <div class="panel panel-default">
+                        <div class="burgundy-head panel-heading top-head"><h4><i class="fa fa-calendar"></i> My Calendar</h4></div>       
+                        <div class="panel-body">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 t-pad">
+                <div class="col-md-6" style="padding-left:0;padding-right:0;">
+                        <div id="training-videos">
+                            <div class="panel panel-default">
+                                <div class="mustard-head panel-heading top-head"><h4><i class="fa fa-video-camera"></i> Training Videos</h4></div>
+
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                      <iframe src="https://www.youtube.com/embed/FLm5UigJJQc" frameborder="0" allowfullscreen=""></iframe>
+                                    </div>
+                                    
+
+                            </div>
+                        </div>
+
+                    </div>
+                <div class="col-md-6" style="padding-left:0;">
+                    <div id="help-docs">
+
+                        <div class="panel panel-default">
+                            <div class="mustard-head panel-heading top-head"><h4><i class="fa fa-file-text"></i> Help Docs</h4></div>    
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="#">This doc</a></li>
+                                <li class="list-group-item"><a href="#">That doc</a></li>
+                                <li class="list-group-item"><a href="#">Other doc</a></li>
+                                <li class="list-group-item"><a href="#">One more doc</a></li>
+                                <li class="list-group-item">
+
+                                    <form method="post" action="/kendo-ui/upload/submit">
+                                        <div class="k-content">
+                                            <div class="k-button k-upload-button"><input name="files" id="files" type="file" data-role="upload" multiple="multiple" autocomplete="off"><span>Select files...</span></div>
+
+                                                <input type="submit" value="Submit" class="k-button k-primary" />
+
+                                        </div>
+                                    </form>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#files").kendoUpload();
+                                        });
+                                    </script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="Scripts/angular.min.js"></script>    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/select.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/kendo.ui.core.min.js"></script>
+    <script src="Scripts/kendo.all.min.js"></script>
+    <script src="Scripts/ui-grid.min.js"></script>    
+    <script src="Scripts/angular-local-storage.min.js"></script>
+    <script src="Scripts/angular-growl.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // create Calendar from div HTML element
+            $("#calendar").kendoCalendar();
+        });
+    </script>
+    <script>
+            $(document).ready(function() {
+                $("#topMenu").kendoMenu();
+            });
+    </script>
+    <script>
+                $(document).ready(function () {
+                    var data = [
+                            "Jamaica Housing Improvement, Inc.",
+                            "NHS of New York City, Inc.",
+                            "Foundation Communities",
+                            "MHA of Greater Hartford, Inc.",
+                            "MHA of Southwestern Connecticut, Inc."
+                            
+                        ];
+
+                    //create AutoComplete UI component
+                    $("#nwo-search").kendoAutoComplete({
+                        dataSource: data,
+                        filter: "startswith",
+                        placeholder: "Search NWO's...",
+                        separator: ", "
+                    });
+                });
+    </script>
+    <script>
+                $(document).ready(function() {
+                    var data = [
+                        { text: "All", value: "1" },
+                        { text: "Applicant", value: "2" },
+                        { text: "Assessment", value: "3" },
+                        { text: "Charter", value: "4" },
+                        { text: "Charter-Provisional", value: "5" },
+                        { text: "Disaffiliation", value: "6" },
+                        { text: "Suspended", value: "7" }
+                    ];
+
+                    // create DropDownList from input HTML element
+                    $("#charter").kendoDropDownList({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: data,
+                        index: 0,
+                        change: onChange
+                    });
+
+                    // create DropDownList from select HTML element
+                    
+
+                    var color = $("#charter").data("kendoDropDownList");
+
+                    color.select(0);
+                    
+
+                    function onChange() {
+                        var value = $("#charter").val();
+                        
+                    };
+
+                    
+                });
+    </script>
+    <script>
+                $(document).ready(function() {
+                    var data = [
+                        { text: "All", value: "1" },
+                        { text: "03/09/2016", value: "2" },
+                        { text: "06/12/2016", value: "3" },
+                        { text: "Unassigned", value: "4" }
+                       
+                    ];
+
+                    // create DropDownList from input HTML element
+                    $("#meetingDate").kendoDropDownList({
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        dataSource: data,
+                        index: 0,
+                        change: onChange
+                    });
+
+                    // create DropDownList from select HTML element
+                    
+
+                    var color = $("#meetingDate").data("kendoDropDownList");
+
+                    color.select(0);
+                    
+
+                    function onChange() {
+                        var value = $("#meetingDate").val();
+                        
+                    };
+
+                    
+                });
+    </script>
+    <script>
+        var app = angular.module('app', ['ngTouch', 'ui.grid']);
+ 
+        app.controller('MainCtrl', ['$scope', function ($scope) {
+            
+          $scope.gridOptions = {
+                
+                data : 'myData',
+                columnDefs: [{ field: 'pCode', displayName: 'Pcode', width: 80,
+                             cellTemplate: '<div class="ui-grid-cell-contents"  style="color: blue;text-decoration: underline;cursor: pointer;"  class="icon-bar"><a href="schedule-offsite-assessment.html">{{row.entity.pCode}}</a></div>'},
+                             { field: 'orgName', displayName: 'Organization Name', width: 220, 
+                             cellTemplate: '<div class="ui-grid-cell-contents"  style="color: blue;text-decoration: underline;cursor: pointer;"  class="icon-bar"><a href="schedule-offsite-assessment.html">{{row.entity.orgName}}</a></div>'},
+                             { field: 'offSiteDate', displayName: 'Last Off-Site Date', width: 160 },
+                             { field: 'nextOffSiteDate', displayName: 'Projected Next Off-Site Date', width: 220 },
+                             { field: 'lastOnsiteConfirmedDate', displayName: 'Last On-Site Confirmed Date', width: 220 },
+                             { field: 'auditReceived', displayName: 'Audit Received', width: 130 },
+                             { field: 'lastAuditRecDate', displayName: 'Last Audit Received Date', width: 200 },
+                             { field: 'fiscalYearAuditRec', displayName: 'Fiscal Year Asso. w/ Audit Received', width: 270 },
+                             { field: 'confOffSiteAssessDate', displayName: 'Confirmed Off-site Assessment Date', width: 270 },
+                             { field: 'ohtsReviewReason', displayName: 'OHTS Review Reason', width: 180 },
+                             { field: 'projNextOnSiteDate', displayName: 'Projected Next On-site Date', width: 230 },
+                             { field: 'orgRating', displayName: 'Org Rating', width: 100 },
+                             { field: 'rm', displayName: 'RM', width: 100 },
+                             { field: 'region', displayName: 'Region', width: 100 }
+
+                             ]
+                };
+          $scope.myData = [
+            {
+                "pCode": "1014",
+                "orgName": "Jamaica Housing Improvement, Inc.",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            },
+            {
+                "pCode": "8007",
+                "orgName": "NHS of New York City, Inc.",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            },
+            {
+                "pCode": "3010",
+                "orgName": "Foundation Communities",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            },
+            {
+                "pCode": "3015",
+                "orgName": "MHA of Greater Hartford, Inc.",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            },
+            {
+                "pCode": "3020",
+                "orgName": "MHA of Southwestern Connecticut, Inc.",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            },
+            {
+                "pCode": "3025",
+                "orgName": "Mutual Housing California",
+                "offSiteDate": "4/2/16",
+                "rm": "",
+                "nextOffSiteDate": "unassigned",
+                "lastOnsiteConfirmedDate": "12/12/15",
+                "auditReceived": "yes",
+                "lastAuditRecDate":"2/4/16",
+                "fiscalYearAuditRec": "2015",
+                "confOffSiteAssessDate":"unassigned",
+                "ohtsReviewReason": "",
+                "projNextOnSiteDate": "7/7/17",
+                "orgRating": "exemplary",
+                "region":""
+                
+            }
+        ];
+        }]);
+    </script>
+    
+    
+</body>
+
+</html>

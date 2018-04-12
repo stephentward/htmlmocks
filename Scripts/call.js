@@ -1,0 +1,1 @@
+$('.stick').stickThis({zindex:3});

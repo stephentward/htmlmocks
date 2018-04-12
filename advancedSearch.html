@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PROMPT</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <!--
+      IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+      For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+    -->
+    <!--[if lt IE 9]>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+      <script>
+        document.createElement('ui-select');
+        document.createElement('ui-select-match');
+        document.createElement('ui-select-choices');
+      </script>
+    <![endif]-->
+
+
+    <meta charset="utf-8">
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/ui-grid.min.css" rel="stylesheet" />
+    <link href="Content/app.css" rel="stylesheet" />
+    <link href="Content/select2.css" rel="stylesheet" />
+    <link href="Content/select.min.css" rel="stylesheet" />
+    <link href="Content/angular-growl.min.css" rel="stylesheet">
+    
+    <link href="Content/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.metro.min.css" rel="stylesheet" />
+    <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" /> 
+    
+    <!--<link href="Content/kendo.2015.1.318/kendo.common.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.metro.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.default.min.css" rel="stylesheet" />
+    <link href="Content/kendo.2015.1.318/kendo.dataviz.min.css" rel="stylesheet" />
+    
+    <link href="Content/kendo.2015.1.318/kendo.rtl.min.css" rel="stylesheet" />-->
+
+    <style>
+        /*.full-screen {
+                  position: fixed;
+                  height: 100%;
+                  width: 100%;
+                  top: 0;
+                  left: 0;
+                }*/
+
+        .zIndex-10--loadingPage {
+            z-index: 1000;
+        }
+
+        [ng:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body>
+    
+    
+     <header>
+        <div class="row">
+            <div id="logo" class="col-md-8">
+                <img src="./Content/images/nwLogo.png">
+            </div>
+            <div id="top-loggedin" class="col-md-4">
+                <div class="col-md-5 right login-bar">
+                  logged in as: admin  <i class="fa fa-cog"></i> 
+                </div>
+                
+            </div>    
+        </div>
+        <div id="header-menu" class="row">
+            <div class="col-md-12">
+                <ul id="topMenu" data-role="menu" class="h-menu k-menu k-menu-horizontal " tabindex="0" role="menubar">
+                    <li class="h-item k-item k-state-active k-first" role="menuitem"><a href="#" class="k-link">Home</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Advanced Search</a></li>                    
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Reports</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Dashboards</a></li>
+                    <li class="h-item k-item k-state-default" role="menuitem"><a href="#" class="k-link">Admin</a></li>
+                </ul>   
+            </div>
+        </div>    
+    </header>
+    <div class="pad">
+        
+        <div id="record-search">
+            <h3><i class="fa fa-search"></i> Advanced Search</h3>
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Review Type: </label>
+                    <select id="review-type" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-3">
+                    <label>Risk Type: </label>
+                    <select id="risk" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-3">
+                    <label>Region: </label>
+                    <select id="region" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-2">
+                    <label>State: </label>
+                    <select id="state" data-placeholder="Select one or more..."></select>
+                </div>            
+            </div>
+            <div class="row t-pad">
+                <div class="col-md-3">
+                    <label>RM: </label>
+                    <select id="rm" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-3">
+                    <label>OAD Reviewer Name: </label>
+                    <select id="oad" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-2">
+                    <label>Meeting Date: </label>
+                    <input id="date" />
+                </div>
+                <div class="col-md-2"><!--this should only show up if a meeting date is selected-->
+                    <label>Consent Agenda: </label>
+                    <input id="consent" />
+                </div>
+            </div>
+            <div class="row t-pad">
+                <div class="col-md-2">
+                    <label>Charter Status: </label>
+                    <select id="charter" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-6">
+                    <label>Assessment Status: </label>
+                    <select id="assessment-status" data-placeholder="Select one or more..."></select>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-primary" value="Clear Selection" ng-click="clear()" style="margin-left:15px;margin-top:20px;" />
+                </div>
+            </div>
+        
+
+        <div style="padding-top:20px;">
+            <div id="grid" ui-grid="gridOptions" class="home-grid"></div>
+        </div>
+    </div>
+        
+        
+    
+    </div>
+    
+    <script src="Scripts/angular.min.js"></script>    
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/select.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/kendo.ui.core.min.js"></script>
+    <script src="Scripts/ui-grid.min.js"></script>    
+    <script src="Scripts/angular-local-storage.min.js"></script>
+    <script src="Scripts/angular-growl.min.js"></script>
+    <script>
+            $(document).ready(function() {
+                $("#topMenu").kendoMenu();
+            });
+    </script>
+    <script>
+      
+        $(document).ready(function() {
+        var types = [
+        {text: "on-site"},
+        {text: "off-site"}
+        
+        ];
+
+        $("#review-type").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: types
+        });
+          
+        
+        var risk = [
+        {text: "Watchlist"},
+        {text: "Risk Observed"},
+        {text: "Early Alert"},
+        {text: "MOU"}
+        
+        ];
+
+        $("#risk").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: risk
+        });
+            
+        var states = [
+        { name: 'ALABAMA', abbreviation: 'AL'},
+        { name: 'ALASKA', abbreviation: 'AK'},
+        { name: 'AMERICAN SAMOA', abbreviation: 'AS'},
+        { name: 'ARIZONA', abbreviation: 'AZ'},
+        { name: 'ARKANSAS', abbreviation: 'AR'},
+        { name: 'CALIFORNIA', abbreviation: 'CA'},
+        { name: 'COLORADO', abbreviation: 'CO'},
+        { name: 'CONNECTICUT', abbreviation: 'CT'},
+        { name: 'DELAWARE', abbreviation: 'DE'},
+        { name: 'DISTRICT OF COLUMBIA', abbreviation: 'DC'},
+        { name: 'FEDERATED STATES OF MICRONESIA', abbreviation: 'FM'},
+        { name: 'FLORIDA', abbreviation: 'FL'},
+        { name: 'GEORGIA', abbreviation: 'GA'},
+        { name: 'GUAM', abbreviation: 'GU'},
+        { name: 'HAWAII', abbreviation: 'HI'},
+        { name: 'IDAHO', abbreviation: 'ID'},
+        { name: 'ILLINOIS', abbreviation: 'IL'},
+        { name: 'INDIANA', abbreviation: 'IN'},
+        { name: 'IOWA', abbreviation: 'IA'},
+        { name: 'KANSAS', abbreviation: 'KS'},
+        { name: 'KENTUCKY', abbreviation: 'KY'},
+        { name: 'LOUISIANA', abbreviation: 'LA'},
+        { name: 'MAINE', abbreviation: 'ME'},
+        { name: 'MARSHALL ISLANDS', abbreviation: 'MH'},
+        { name: 'MARYLAND', abbreviation: 'MD'},
+        { name: 'MASSACHUSETTS', abbreviation: 'MA'},
+        { name: 'MICHIGAN', abbreviation: 'MI'},
+        { name: 'MINNESOTA', abbreviation: 'MN'},
+        { name: 'MISSISSIPPI', abbreviation: 'MS'},
+        { name: 'MISSOURI', abbreviation: 'MO'},
+        { name: 'MONTANA', abbreviation: 'MT'},
+        { name: 'NEBRASKA', abbreviation: 'NE'},
+        { name: 'NEVADA', abbreviation: 'NV'},
+        { name: 'NEW HAMPSHIRE', abbreviation: 'NH'},
+        { name: 'NEW JERSEY', abbreviation: 'NJ'},
+        { name: 'NEW MEXICO', abbreviation: 'NM'},
+        { name: 'NEW YORK', abbreviation: 'NY'},
+        { name: 'NORTH CAROLINA', abbreviation: 'NC'},
+        { name: 'NORTH DAKOTA', abbreviation: 'ND'},
+        { name: 'NORTHERN MARIANA ISLANDS', abbreviation: 'MP'},
+        { name: 'OHIO', abbreviation: 'OH'},
+        { name: 'OKLAHOMA', abbreviation: 'OK'},
+        { name: 'OREGON', abbreviation: 'OR'},
+        { name: 'PALAU', abbreviation: 'PW'},
+        { name: 'PENNSYLVANIA', abbreviation: 'PA'},
+        { name: 'PUERTO RICO', abbreviation: 'PR'},
+        { name: 'RHODE ISLAND', abbreviation: 'RI'},
+        { name: 'SOUTH CAROLINA', abbreviation: 'SC'},
+        { name: 'SOUTH DAKOTA', abbreviation: 'SD'},
+        { name: 'TENNESSEE', abbreviation: 'TN'},
+        { name: 'TEXAS', abbreviation: 'TX'},
+        { name: 'UTAH', abbreviation: 'UT'},
+        { name: 'VERMONT', abbreviation: 'VT'},
+        { name: 'VIRGIN ISLANDS', abbreviation: 'VI'},
+        { name: 'VIRGINIA', abbreviation: 'VA'},
+        { name: 'WASHINGTON', abbreviation: 'WA'},
+        { name: 'WEST VIRGINIA', abbreviation: 'WV'},
+        { name: 'WISCONSIN', abbreviation: 'WI'},
+        { name: 'WYOMING', abbreviation: 'WY' }
+    ];    
+    
+        $("#state").kendoMultiSelect({
+            dataTextField: "abbreviation",            
+            dataSource: states
+        });        
+        
+        var region = [
+        {text: "Southern"},
+        {text: "Northeast"},
+        {text: "Midwest"},
+        {text: "Western"}
+        
+        ];
+            
+        $("#region").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: region
+        });
+        
+        var rm = [
+        {text: "Field RM"},
+        {text: "RM 1"},
+        {text: "RM two"},
+        {text: "RM Number three"}
+        
+        ];
+            
+        $("#rm").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: rm
+        });
+        
+        var oad = [
+        {text: "OAD Reviewer"},
+        {text: "OAD Reviewer name"},
+        {text: "OAD 1"},
+        {text: "OAD Reviewer two"}
+        
+        ];
+            
+        $("#oad").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: oad
+        });
+        
+        var dates = [
+            {text: ""},
+            {text: "06/20/2016"},
+            {text: "05/03/2016"},
+            {text: "04/30/2016"},
+            {text: "03/31/2016"},
+            {text: "04/21/2016"}
+        ];    
+            
+        $("#date").kendoDropDownList({
+            dataTextField: "text",            
+            dataSource: dates           
+            
+        });
+        
+        var consent = [
+            {text: ""},
+            {text: "yes"},
+            {text: "no"}
+        ];    
+            
+        $("#consent").kendoDropDownList({
+            dataTextField: "text",            
+            dataSource: consent       
+            
+        });
+        
+        var charter = [
+            {text: "Assessment"},
+            {text: "Applicant"},
+            {text: "Charter-Provisional"},
+            {text: "Charter"},
+            {text: "Disaffiliation"},
+            {text: "Suspended"}
+        ];    
+            
+        $("#charter").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: charter       
+            
+        });
+        
+        var assessmentStatus = [
+            {text: "OAD Draft Report"},
+            {text: "Pending OAD Supervisor Approval"},
+            {text: "Pending SVP Review of OHTS Comments"},
+            {text: "Pending OAD Supervisor Approval"},
+            {text: "Pending SVP Review of OHTS Comments"},
+            {text: "Pending Field comments"},
+            {text: "Pending NREP comments"},
+            {text: "Pending NHP comments"},
+            {text: "Pending NFMC comments"}
+        ];    
+            
+        $("#assessment-status").kendoMultiSelect({
+            dataTextField: "text",            
+            dataSource: assessmentStatus      
+            
+        });    
+        
+    });
+    </script>
+    
+    
+</body>
+
+</html>
